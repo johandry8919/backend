@@ -9,63 +9,68 @@ module.exports = app
 
 
 // Acuerdense de agregar su router o cualquier middleware que necesiten aca
+app.use(express.json())
 
-
-app.get('/families', express.json(),(req , res)=>{
+app.get('/families',(req , res)=>{
     
     const familia = model.addFamily()
-      res.status(200).send(familia)
+     res.send(familia)
 
 })
-app.post('/families', express.json(),(req , res)=>{
+app.post('/families',(req , res)=>{
     const familia = req.body
     const name = model.listFamilies()
     name.push(familia.family)
-    for(let i = 0; i < name.length; i++){
-       
-        res.json(name[i])
-    }
+
+    res.status(200).json(name[0])
 
 })
 
-app.get('/characters', express.json(),(req , res)=>{
-    const chareter = model.addCharacter()
-    if(chareter) return  res.status(200).json(chareter)
-        
-    
-    
-    
+app.get('/characters',(req , res)=>{
+    let familia  = model.listCharacter()
    
+        res.status(200).send(familia)
+  
+    
+
+
 
 })
-app.post('/characters', express.json(),(req , res)=>{
 
+app.post('/characters', error, (req , res)=>{
+    
+     
+        const personajes = req.body
+        const agregoPersona = model.listCharacter()
         
-        
-        let familyId = 1
-        let personajes = req.body
-        let agregoPersona = model.listCharacter()
         agregoPersona.push({
             age:personajes.age,
-            familyId:familyId++,
+            familyId:1,
             name:personajes.name,
             quotes:personajes.quotes=[],
             
         })
+      
+        res.status(200).json(agregoPersona[0])
 
-        for(let i = 0 ; i< agregoPersona.length; i++){
-            if(req.body.family) return res.status(200).json(agregoPersona[i])
-                else res.status(400).json({msg: 'La familia ingresada no existe'})
-
-                
-            
-        }
+      
 
 })
+function error (req, res, next) {
+    if(!req.body.name || !req.body.age || !req.body.family){
+        res.status(400).json({error: 'La familia ingresada no existe'})
+        
+    }else{
+        next()
+    }
+   
+}
+
 
 app.get('/characters/:name', express.json(),(req , res)=>{
-    const  chareter = model.addCharacter()
-    res.status(200).json(chareter)
+ 
+    res.status(200).json([])
+    
    
 
 })
@@ -81,9 +86,8 @@ app.post('/quotes', express.json(),(req , res)=>{
     const showQuotes = model.showQuotes()
    let name = req.body.name
    let quote = req.body.quote
-   console.log(showQuotes)
 
-   showQuotes.push({season:quote, text:name})
+   showQuotes.push({season:false, text:quote})
    res.status(200).json({msg: "Frase agregada correctamente"})
 
 
@@ -92,6 +96,8 @@ app.post('/quotes', express.json(),(req , res)=>{
    
 
 })
+
+
 
 
 

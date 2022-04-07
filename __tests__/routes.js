@@ -58,7 +58,7 @@ describe('Routes', function() {
         });
     });
 
-    xit('GET responde con un array de todos los personajes', function() {
+    it('GET responde con un array de todos los personajes', function() {
       model.addFamily('Simpsons');
       model.addFamily('Gorgory');
       model.addCharacter('Homero', 36, "Simpsons");
@@ -104,7 +104,7 @@ describe('Routes', function() {
   });
 
   describe('/characters/:name', function() {
-    xit('GET responde con un array vacío si la familia no existe', function() {
+    it('GET responde con un array vacío si la familia no existe', function() {
       model.addFamily('Simpsons');
       model.addFamily('Gorgory');
       model.addCharacter('Homero', 36, "Simpsons");
@@ -119,7 +119,7 @@ describe('Routes', function() {
         });
     });
 
-    xit('GET responde con un array de todos los personajes de esa familia', function() {
+    it('GET responde con un array de todos los personajes de esa familia', function() {
       model.addFamily('Simpsons');
       model.addFamily('Gorgory');
       model.addCharacter('Homero', 36, "Simpsons");

@@ -91,7 +91,7 @@ describe('Model', function() {
       expect(Model.listCharacter('Gorgory')[0].name).toEqual("Rafa");
     });
 
-    xit('Si recibe un segundo parámetro en true debe devolver únicamente los nombres de los personajes', function() {
+    it('Si recibe un segundo parámetro en true debe devolver únicamente los nombres de los personajes', function() {
       Model.addFamily('Simpsons');
       Model.addFamily('Gorgory');
       Model.addCharacter('Homero', 36, "Simpsons");

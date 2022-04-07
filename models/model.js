@@ -17,26 +17,37 @@ module.exports = {
   },
   // ==== COMPLETEN LAS SIGUIENTES FUNCIONES (vean los test de `model.js`) =====
   listCharacter: function (family, pluckName) {
+   
+    // Simpsons
+
     // Devuelve un arreglo con todos los personajes
     // Si recibe un nombre de familia como parámetro debería filtrar solo los personajes de ella
     // Si recibe un segundo parámetro en true debe devolver únicamente los nombres de los personajes
-    if(family || pluckName) return characters.filter(name => {
-      if(name.family === family){
-        return name.name
-      }else{
-        if(pluckName){
-          return name
+    if(family && pluckName ){
+
+      let familias = characters.filter(id => {
+        if(family === "Simpsons"){
+          return id.familyId === 1
         }
-         
-      }
-    })
+          return id.familyId === 2
 
+      })
+      let name = familias.map(f => f.name)
+      return  name
+    }else if(family){
+      let familias = characters.filter(id => {
+        if(family === "Simpsons"){
+          return id.familyId === 1
+        }
+          return id.familyId === 2
 
-    
-
-    
+      })
+      return familias
  
-    return characters
+  
+    }
+
+    return characters;
 
 
   },
@@ -62,8 +73,8 @@ module.exports = {
    
 
   },
+
   addCharacter: function(name, age, family) {
-    var id = 1
     // Agrega un nuevo personaje, inicialmente sus frases (quotes) deben estar "vacias"
     // Adicionalmente va a ser necesario guardar el número de familia y no su nombre
     // El número de familia debe empezar desde 1 y no desde 0.
@@ -74,24 +85,25 @@ module.exports = {
 
     if (familyNovaldo) {
       return characters;
-    } else {
-      let familiaAgrgada = characters.push({
-        name,
-        family,
-        age,
-        quotes: [],
-        familyId: 1,
-      });
-      for (let i = 1; i < characters.length; i++) {
-        characters[i].familyId++ -1;
-      }
+    }else{
+      let idf=1;
+    
+    
+   if(family==='Gorgory'){
+     idf=2;
+   }  
 
-     
+  
+   characters.push({
+       name,
+       age,
+       quotes:[],
+       familyId: idf,
+     });
     }
 
 
- 
-       return characters
+      return characters
 
 
   },
@@ -103,14 +115,14 @@ module.exports = {
     
     let season = false
 
-    if(name && quote.text !== {}) array.push({text: quote.text ,season })
-      else if(array[0] === {}) return array = []
 
+    if(name && quote.text !== '' && quote.text !== undefined){
+      if(quote.season)
+          season=quote.season; 
+      array.push({text: quote.text ,season })
 
-
-    // for(let i = 0; i< array.length; i++){
-    //   if(name && array[i].text === undefined) return array[i] 
-    // }
+    }
+      else  return array;
  
    
     return array
